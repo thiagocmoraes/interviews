@@ -18,48 +18,54 @@ class DoubleLinkedList(object):
     """
     head = None
     tail = None
+    size = 0
 
-    def insert(self, data):
-        # Create new node with given value
-        new_node = Node(data, None, None)
-
+    def insert(self, node):
         # treat empy list case
         if self.head is None:
-            self.head = self.tail = new_node
+            self.head = self.tail = node
         # here the list already has at least one item
         else:
             # tail pointer walks the list. Point the 'prev' pointer from the new
             # node to the tail pointer
-            new_node.prev = self.tail
-            new_node.next = None
+            node.prev = self.tail
+            node.next = None
 
             # again, tail pointer points to the current last element of the
             # list, so we need to update it's next pointer to point to the new
             # node to be added
-            self.tail.next = new_node
+            self.tail.next = node
 
             # Finally, update the tail pointer to point to the most recently
             # added element
-            self.tail = new_node
+            self.tail = node
+        self.size += 1
+        return node
 
-    def remove(set, node_val):
+    def remove(set, node):
         """
         Removes an element from the list based on a given value
         """
-        curr_node = self.head
-        while curr_node is not None:
-            if curr_node.data == node_val:
-                # Check if we are dealing with the first element
-                if curr_node.prev is not None:
-                    curr_node.prev.next = curr_node.next
-                    curr_node.next.prev = curr_node.prev
-                else:
-                    self.head = curr_node.next
-                    curr_node.next.prev = None
-            curr_node = curr_node.next
+        if self.size == 1:
+            self.head = self.tail = None
+        else:
+            if node.prev is not None:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+                self.size -= 1
+            else:
+                self.head = node.next
+                node.next.prev = None
+                self.size -= 1
+            return node
+        return None
 
     def show(self):
         curr_node = self.head
         while curr_node.data is not None:
             print curr_node.data,
             curr_node = curr_node.next
+
+    def size(self):
+        return self.size
+
