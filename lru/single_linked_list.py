@@ -6,9 +6,9 @@ class Node(object):
     """
     Node base class
     """
-    def __init__(self):
-        self.value = None
-        self.next  = None
+    def __init__(self, value, next):
+        self.value = value
+        self.next  = next
 
 
 class SingleLinkedList(object):
@@ -26,6 +26,7 @@ class SingleLinkedList(object):
         else:
             self.tail.next = new_node
         self.tail = new_node
+        return new_node
 
     def remove(self, value):
         prev_node = self.head
@@ -34,8 +35,10 @@ class SingleLinkedList(object):
             if curr_node.value == value:
                 if curr_node.next is not None:
                     prev_node.next = curr_node.next
+                    return prev_node
                 else:
                     self.head = curr_node.next
+                    return self.head
             # Is this correct?
             # curr_node = curr_node.next
             # prev_node = prev_node.next
@@ -44,8 +47,10 @@ class SingleLinkedList(object):
                 
     def show(self):
         node = self.head
-        while node.next is not None:
-            print node.value,
+        while True:
+            print node.value, " -> ",
             node = node.next
-        print None
+            if node.next is None:
+                print node.value, " -> ", None
+                break
 
