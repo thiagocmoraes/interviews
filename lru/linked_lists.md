@@ -39,3 +39,13 @@ is a two way.
 2. It needs to keep both forward and backward pointers in place.
 3. Double linked list do not adapt well with a persistent setting.
 
+## Cycles in linked lists
+
+(source: http://ostermiller.org/find_loop_singly_linked_list.html)
+
+If a linked list has a cycle:
+
+ - The malformed linked list has no end (no node ever has a null next_node pointer)
+ - The malformed linked list contains two links to some node
+ - Iterating through the malformed linked list will yield all nodes in the loop
+   multiple times
