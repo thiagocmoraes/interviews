@@ -1,78 +1,63 @@
-""" This script implements a LRU cache with variable size
 """
+This script implements a LRU cache with variable size
+POSSIBLE PROBLEMS WITH THIS IMPLEMENTATION:
+    1. remove method from the linked list is based on value, not index. It will
+    always remove the first found element from the list with the given value.
+    Question: Is this relevant? Since if you might have repeated elements, when
+    removing one of them it won't matter which one.
+"""
+import double_linked_list
 
 class lru_cache(object):
     """
     LRU cache: store the most recently used item at the end and the least used
     one at the beginning.
+    Here, I will use two data structures:
+        - A hash table, to five O(1) access time to the cache
+        - A doubly linked list, in order to remove items from the cache in an
+          optimal way, with O(n) search time.
     """
     def __init__(self, size):
         self.cache_size = size
         self.cache      = {}
-        self.cache_vals = dlink_list()
+        self.cache_vals = DoubleLinkedList()
 
-    def set(self, key, item):
+    def set(self, key, data):
+        # Check if the hash table already has that item stored. If it does,
+        # simply update the given value by updating the node.data variable.
+        # This is done by accessing the node via the hash table
         if self.cache.has_key(key):
             node = self.cache[key]
-            node.data = value
-            self.cache_vals.remove(node)
-            self.cache_vals.insert_at_tail(node)
+            node.data = data
+
+            # Now that we updated the node, it becomes the Most Recently used,
+            # so we need to move it to the end of the list (the LRU is always
+            # the HEAD, the MRU is always the TAIL
+            self.cache_vals.remove(node.data)
+            self.cache_vals.insert(node.data)
         else:
-            self.evict()
-            node = list_node(key, value)
-            self.cache.insert_at_tail(node)
-            self.cache[key] = node
+            # If the item is not on the hash table, it means we are dealing with
+            # a new element. In order to add a new element, we need to check if
+            # the cache has remaining space. If it doesn't, we flush the LRU
+            # element out of the cache and add the new element as the new MRU
+            # one.
+            self.flush()
+            self.cache_vals.insert(node.data)
 
     def get(self, key):
         if self.cache.has_key(key):
             node = self.cache[key]
-            self.cache_vals.remove(node)
-            self.cache_vals.insert_at_tail(node)
+            self.cache_vals.remove(node.data)
+            self.cache_vals.insert(node.data)
             return node.data
         else:
             return -1
 
-    def evict(self):
+    def flush(self):
         if self.cache_vals.size >= self.size:
-            node = self.cache_vals.remove_head()
+            node = self.cache_vals.remove(self.cache_vals.head.data)
             del self.cache[node.key]
 
-    def print_cache(self):
-        node = sef.cache_vals.head
-        while node != None:
-            print str(node.key) + " " + str(node.data) + ", "
-            node = node.next
-
-
-    def get(self, value):
-        self.cache.remove(value)
-        self.cache.append(value)
-
     def display(self):
-        print(self.cache)
-
-if __name__ == "__main__":
-    # Initialize cache
-    lru = lru_cache(5)
-
-    # Add items to cache
-    lru.set('a')
-    lru.set('b')
-    lru.set('c')
-    lru.set('d')
-    lru.set('e')
-
-    lru.display()
-
-    # change MRU
-    lru.get(0)
-    lru.display()
-
-    lru.get(2)
-    lru.display()
-
-    # Add new item
-    lru.set('f')
-
-    lru.display()
+        self.cache_vals.show()
 
