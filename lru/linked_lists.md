@@ -10,6 +10,9 @@ http://www.quora.com/Data-Structures-When-is-a-singly-linked-list-more-useful-th
 2. It only needs to keep forward pointer/referencing in place.
 3. Singly linked list are persistent data structure.
     3.1 http://en.wikipedia.org/wiki/Persistent_data_structure#Linked_lists
+4.  A singly linked list is often used as a stack (or last in first out queue
+(LIFO)) because adding a new first element, removing the existing first element,
+and examining the first element are very fast O(1) operations.
 
 ### Cons:
 1. In general, to remove a node from the list, you have to change the next
