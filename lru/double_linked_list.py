@@ -7,7 +7,7 @@ class Node(object):
     Simple linked list with two pointers and a storage for value
     """
     def __init__(self):
-        self.value = None
+        self.data = None
         self.prev  = None
         self.next  = None
 
@@ -18,7 +18,7 @@ class DoubleLinkedList(object):
     head = None
     tail = None
 
-    def add(self, data):
+    def insert(self, data):
         # Create new node with given value
         new_node = Node(data, None, None)
 
@@ -47,7 +47,7 @@ class DoubleLinkedList(object):
         """
         curr_node = self.head
         while curr_node is not None:
-            if curr_node.value == node_val:
+            if curr_node.data == node_val:
                 # Check if we are dealing with the first element
                 if curr_node.prev is not None:
                     curr_node.prev.next = curr_node.next
@@ -59,6 +59,6 @@ class DoubleLinkedList(object):
 
     def show(self):
         curr_node = self.head
-        while curr_node.value is not None:
-            print curr_node.value,
+        while curr_node.data is not None:
+            print curr_node.data,
             curr_node = curr_node.next
