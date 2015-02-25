@@ -1,5 +1,6 @@
 """
 Simple implementation of a singly linked list
+(based on http://ls.pwd.io/2014/08/singly-and-doubly-linked-lists-in-python/)
 """
 class Node(object):
     """
