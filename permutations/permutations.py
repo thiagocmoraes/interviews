@@ -5,8 +5,16 @@ Find all permutations of a string
 # To be used in the easy answer
 import itertools
 
+# Simple solution
+def permutations(head, tail=''):
+    if len(head) == 0:
+        print tail
+    else:
+        for i in range(len(head)):
+            permutations(head[0:i] + head[i+1:], tail+head[i])
+
 # Create a generator so we don't use too much memory
-def permutations(word):
+def permutations2(word):
     if len(word) <= 1:
         yield word
     else:
@@ -15,7 +23,7 @@ def permutations(word):
                 yield perm[:i] + word[0:1] + perm[i:]
 
 # Using python awesomeness
-def permutations2(word):
+def permutations3(word):
     return itertools.permutations(word)
 
 
@@ -24,5 +32,8 @@ for p in permutations("abc"):
     print(p)
 
 for p in permutations2("abc"):
+    print "".join(i)
+
+for p in permutations3("abc"):
     print "".join(i)
 
