@@ -4,6 +4,16 @@
 
 # Iteratively find substets from given array and add them up as we go and compare with the given value
 
+# BONUS: Do the same as above, but instead of a sum, find the product one!
+# (given an array of 100 numbers, get the two numers whose product will give you
+# a third number given.
+# it can be done with O(n) space and O(n) Runtime with Hash.
+# 
+# Step#1 Iterate over Array.
+# Step#2 Key = 30/Array[i]. 
+#         a)Check if the key exists in Hashmap. If yes, print key and Array[i]
+#         b)if not [Insert key into Hashmap ]
+
 def do_they_sum(arr, num):
     return v1, v2 # v1+v2 == num
 
@@ -70,4 +80,5 @@ def strstr(needle, haystack):
         aux = haystack[i:len(needle)]
         if aux == needle
             return True
+
 
